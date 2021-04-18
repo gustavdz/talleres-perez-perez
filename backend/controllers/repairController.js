@@ -24,11 +24,16 @@ const getRepairs = asyncHandler(async (req, res) => {
       })
       .limit(pageSize)
       .skip(pageSize * (page - 1));
+
+    //Ordenando ascendentemente luego de obtenerlo con el high order function de sort
+    //const repairsSorted = repairs.sort((a, b) => (a.date < b.date ? -1 : 1));
+
     res.json({
       page,
       pages: Math.ceil(count / pageSize),
       count,
       repairs,
+      //repairsSorted,
     });
   } catch (error) {
     res.status(400);

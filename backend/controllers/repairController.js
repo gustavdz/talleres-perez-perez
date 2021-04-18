@@ -53,6 +53,7 @@ const getRepairsByCar = asyncHandler(async (req, res) => {
     if (car) {
       const count = await Repair.countDocuments({ car: car._id });
       const repairs = await Repair.find({ car: car._id })
+        .sort({ date: "asc" })
         .populate({
           path: "car",
           select: "-repairs",

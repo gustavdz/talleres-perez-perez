@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Meta from "../components/Meta";
@@ -32,10 +31,6 @@ const RepairListScreen = ({ match, history }) => {
   return (
     <>
       <Meta />
-
-      <Link to="/home" className="btn btn-light">
-        Regresar
-      </Link>
 
       <Row className="align-items-center">
         <Col>

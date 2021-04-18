@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import {
   Nav,
   Image,
@@ -13,7 +12,6 @@ import {
 import { logout } from "../actions/userActions";
 
 import ProfileDefault from "../assets/img/team/profile-picture-default.png";
-import { LinkContainer } from "react-router-bootstrap";
 import { Route } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
@@ -52,15 +50,6 @@ const NavbarAdmin = () => {
                     </div>
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="user-dropdown dropdown-menu-right mt-2">
-                    <LinkContainer to="/profile">
-                      <Dropdown.Item className="fw-bold">
-                        <FontAwesomeIcon icon={faUserCircle} className="me-2" />{" "}
-                        My Profile
-                      </Dropdown.Item>
-                    </LinkContainer>
-
-                    <Dropdown.Divider />
-
                     <Dropdown.Item className="fw-bold" onClick={logoutHandler}>
                       <FontAwesomeIcon
                         icon={faSignOutAlt}

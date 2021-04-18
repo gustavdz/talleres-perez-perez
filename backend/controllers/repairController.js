@@ -8,7 +8,7 @@ const Car = require("../models/carModel");
 // @access  Private
 const getRepairs = asyncHandler(async (req, res) => {
   try {
-    const pageSize = 10;
+    const pageSize = 5;
     const page = Number(req.query.pageNumber) || 1;
     const count = await Repair.countDocuments();
     const repairs = await Repair.find()
@@ -46,7 +46,7 @@ const getRepairs = asyncHandler(async (req, res) => {
 // @access  Private
 const getRepairsByCar = asyncHandler(async (req, res) => {
   try {
-    const pageSize = 10;
+    const pageSize = 2;
     const page = Number(req.query.pageNumber) || 1;
     const car = await Car.findById(req.params.id);
 

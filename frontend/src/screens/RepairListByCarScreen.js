@@ -8,12 +8,11 @@ import Loader from "../components/Loader";
 import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
 
-import { listCars } from "../actions/carActions";
+import { listRepairsByCar } from "../actions/repairActions";
 
-const CarListScreen = ({ match, history }) => {
+const RepairListByCarScreen = ({ match, history }) => {
   const pageNumber = match.params.pageNumber || 1;
-  const customerId = match.params.customerId;
-  const keyword = "";
+  const carId = match.params.carId;
   const [reload, setReload] = useState(false);
 
   const dispatch = useDispatch();
@@ -21,16 +20,16 @@ const CarListScreen = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const carList = useSelector((state) => state.carList);
-  const { loading, error, cars, page, pages } = carList;
+  const repairList = useSelector((state) => state.repairList);
+  const { loading, error, repairs, page, pages } = repairList;
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     }
-    dispatch(listCars(keyword, pageNumber, customerId));
+    dispatch(listRepairsByCar(pageNumber, carId));
     setReload(false);
-  }, [dispatch, pageNumber, history, userInfo, customerId, reload]);
+  }, [dispatch, pageNumber, history, userInfo, carId, reload]);
 
   return (
     <>
@@ -42,12 +41,12 @@ const CarListScreen = ({ match, history }) => {
 
       <Row className="align-items-center">
         <Col>
-          <h1>Carros del cliente</h1>
+          <h1>Reparaciones del carro</h1>
         </Col>
         <Col className="text-right">
-          <LinkContainer to={`/car/customer/${customerId}`}>
+          <LinkContainer to={`/repair/car/${carId}`}>
             <Button variant="primary" className="btn-sm">
-              <i className="fas fa-plus"></i> Agregar Carro
+              <i className="fas fa-plus"></i> Agregar Reparación
             </Button>
           </LinkContainer>
         </Col>
@@ -62,40 +61,24 @@ const CarListScreen = ({ match, history }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Año</th>
-                <th>Reparaciones</th>
-                <th></th>
+                <th>Fecha</th>
+                <th>Descripción</th>
               </tr>
             </thead>
             <tbody>
-              {cars.map((car) => (
-                <tr key={car._id}>
-                  <td>{car.brand}</td>
-                  <td>{car.model}</td>
-                  <td>{car.year}</td>
-                  <td>{car.repairs.length}</td>
-                  <td className="text-center">
-                    <LinkContainer to={`/repairs/car/${car._id}/`}>
-                      <Button variant="primary" className="btn-sm">
-                        <i className="fas fa-list"></i> Listar Reparaciones
-                      </Button>
-                    </LinkContainer>
-                  </td>
+              {repairs.map((repair) => (
+                <tr key={repair._id}>
+                  <td>{repair.date}</td>
+                  <td>{repair.description}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
-          <Paginate
-            pages={pages}
-            page={page}
-            screen={`cars/customer/${customerId}`}
-          />
+          <Paginate pages={pages} page={page} screen={`repairs/car/${carId}`} />
         </>
       )}
     </>
   );
 };
 
-export default CarListScreen;
+export default RepairListByCarScreen;

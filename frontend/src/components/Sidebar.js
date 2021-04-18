@@ -8,6 +8,7 @@ import {
   faSignOutAlt,
   faTimes,
   faUserFriends,
+  faCarCrash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Nav,
@@ -158,6 +159,12 @@ const Sidebar = () => {
                     title="Mis Clientes"
                     link="/home"
                     icon={faUserFriends}
+                  />
+
+                  <NavItem
+                    title="Reparaciones"
+                    link="/repairs"
+                    icon={faCarCrash}
                   />
 
                   <Dropdown.Divider className="my-3 border-indigo" />

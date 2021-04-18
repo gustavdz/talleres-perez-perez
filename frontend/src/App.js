@@ -12,6 +12,9 @@ import NotFoundScreen from "./screens/NotFoundScreen";
 import CustomerCreateScreen from "./screens/CustomerCreateScreen";
 import CarListScreen from "./screens/CarListScreen";
 import CarCreateScreen from "./screens/CarCreateScreen";
+import RepairListByCarScreen from "./screens/RepairListByCarScreen";
+import RepairListScreen from "./screens/RepairListScreen";
+import RepairCreateScreen from "./screens/RepairCreateScreen";
 
 const App = () => {
   const [loaded, setLoaded] = useState(false);
@@ -70,8 +73,40 @@ const App = () => {
                   />
 
                   <Route
+                    path="/cars/customer/:customerId/page/:pageNumber"
+                    component={CarListScreen}
+                    exact
+                  />
+
+                  <Route
                     path="/car/customer/:customerId"
                     component={CarCreateScreen}
+                    exact
+                  />
+
+                  <Route
+                    path="/repairs/car/:carId"
+                    component={RepairListByCarScreen}
+                    exact
+                  />
+
+                  <Route
+                    path="/repairs/car/:carId/page/:pageNumber"
+                    component={RepairListByCarScreen}
+                    exact
+                  />
+
+                  <Route
+                    path="/repair/car/:carId"
+                    component={RepairCreateScreen}
+                    exact
+                  />
+
+                  <Route path="/repairs" component={RepairListScreen} exact />
+
+                  <Route
+                    path="/repairs/page/:pageNumber"
+                    component={RepairListScreen}
                     exact
                   />
 

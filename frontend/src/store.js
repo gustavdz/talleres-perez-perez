@@ -8,6 +8,11 @@ import {
 } from "./reducers/customerReducers";
 
 import { carListReducer, carCreateReducer } from "./reducers/carReducers";
+import {
+  repairListByCarReducer,
+  repairListReducer,
+  repairCreateReducer,
+} from "./reducers/repairReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -16,6 +21,9 @@ const reducer = combineReducers({
   customerCreate: customerCreateReducer,
   carList: carListReducer,
   carCreate: carCreateReducer,
+  repairListByCar: repairListByCarReducer,
+  repairList: repairListReducer,
+  repairCreate: repairCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

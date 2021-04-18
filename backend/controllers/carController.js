@@ -11,18 +11,22 @@ const getcarsByCustomer = asyncHandler(async (req, res) => {
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
     const customer = await Customer.findById(req.params.id);
-
-    const count = await Car.countDocuments({ owner: customer._id });
-    const cars = await Car.find({ owner: customer._id })
-      .populate("owner", "-cars")
-      .limit(pageSize)
-      .skip(pageSize * (page - 1));
-    res.json({
-      page,
-      pages: Math.ceil(count / pageSize),
-      count,
-      cars,
-    });
+    if (customer) {
+      const count = await Car.countDocuments({ owner: customer._id });
+      const cars = await Car.find({ owner: customer._id })
+        .populate("owner", "-cars")
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({
+        page,
+        pages: Math.ceil(count / pageSize),
+        count,
+        cars,
+      });
+    } else {
+      res.status(404);
+      throw new Error("The owner does not exist in our database");
+    }
   } catch (error) {
     res.status(400);
     throw new Error(error);

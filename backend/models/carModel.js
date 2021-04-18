@@ -19,6 +19,13 @@ const carSchema = mongoose.Schema(
       required: true,
       ref: "Customer",
     },
+    repairs: [
+      {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false,
+        ref: "Repair",
+      },
+    ],
   },
   {
     timestamps: true,

@@ -9,6 +9,7 @@ const http = require("http");
 const userRoutes = require("./routes/userRoutes");
 const carRoutes = require("./routes/carRoutes");
 const customerRoutes = require("./routes/customerRoutes");
+const repairRoutes = require("./routes/repairRoutes");
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/cars", carRoutes);
 app.use("/api/customers", customerRoutes);
+app.use("/api/repairs", repairRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

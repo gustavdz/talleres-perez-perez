@@ -7,11 +7,15 @@ import {
   customerCreateReducer,
 } from "./reducers/customerReducers";
 
+import { carListReducer, carCreateReducer } from "./reducers/carReducers";
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   customerList: customerListReducer,
   customerCreate: customerCreateReducer,
+  carList: carListReducer,
+  carCreate: carCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

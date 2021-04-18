@@ -8,11 +8,12 @@ import Loader from "../components/Loader";
 import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
 
-import { listCustomers } from "../actions/customerActions";
+import { listCars } from "../actions/carActions";
 
 const CarListScreen = ({ match, history }) => {
-  const keyword = match.params.keyword;
   const pageNumber = match.params.pageNumber || 1;
+  const customerId = match.params.customerId;
+  const keyword = "";
   const [reload, setReload] = useState(false);
 
   const dispatch = useDispatch();
@@ -20,34 +21,33 @@ const CarListScreen = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const customerList = useSelector((state) => state.customerList);
-  const { loading, error, customers, page, pages } = customerList;
+  const carList = useSelector((state) => state.carList);
+  const { loading, error, cars, page, pages } = carList;
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     }
-    dispatch(listCustomers(keyword, pageNumber));
+    dispatch(listCars(keyword, pageNumber, customerId));
     setReload(false);
-  }, [dispatch, keyword, pageNumber, history, userInfo, reload]);
+  }, [dispatch, pageNumber, history, userInfo, customerId, reload]);
 
   return (
     <>
       <Meta />
-      {keyword && (
-        <Link to="/home" className="btn btn-light">
-          Regresar
-        </Link>
-      )}
+
+      <Link to="/home" className="btn btn-light">
+        Regresar
+      </Link>
 
       <Row className="align-items-center">
         <Col>
-          <h1>Mis Clientes</h1>
+          <h1>Carros del cliente</h1>
         </Col>
         <Col className="text-right">
-          <LinkContainer to={`/customer`}>
+          <LinkContainer to={`/car/customer/${customerId}`}>
             <Button variant="primary" className="btn-sm">
-              <i className="fas fa-plus"></i> Crear Cliente
+              <i className="fas fa-plus"></i> Agregar Carro
             </Button>
           </LinkContainer>
         </Col>
@@ -62,22 +62,24 @@ const CarListScreen = ({ match, history }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Carros</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Reparaciones</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {customers.map((customer) => (
-                <tr key={customer._id}>
-                  <td>{customer.name}</td>
-                  <td>{customer.phone}</td>
-                  <td>{customer.cars.length}</td>
+              {cars.map((car) => (
+                <tr key={car._id}>
+                  <td>{car.brand}</td>
+                  <td>{car.model}</td>
+                  <td>{car.year}</td>
+                  <td>{car.repairs.length}</td>
                   <td className="text-center">
-                    <LinkContainer to={`/cars/customer/${customer._id}/`}>
+                    <LinkContainer to={`/repairs/car/${car._id}/`}>
                       <Button variant="primary" className="btn-sm">
-                        <i className="fas fa-list"></i> Listar Carros
+                        <i className="fas fa-list"></i> Listar Reparaciones
                       </Button>
                     </LinkContainer>
                   </td>
@@ -85,11 +87,7 @@ const CarListScreen = ({ match, history }) => {
               ))}
             </tbody>
           </Table>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ""}
-          />
+          <Paginate pages={pages} page={page} keyword={""} />
         </>
       )}
     </>

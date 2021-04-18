@@ -11,6 +11,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import CustomerCreateScreen from "./screens/CustomerCreateScreen";
 import CarListScreen from "./screens/CarListScreen";
+import CarCreateScreen from "./screens/CarCreateScreen";
 
 const App = () => {
   const [loaded, setLoaded] = useState(false);
@@ -65,6 +66,12 @@ const App = () => {
                   <Route
                     path="/cars/customer/:customerId"
                     component={CarListScreen}
+                    exact
+                  />
+
+                  <Route
+                    path="/car/customer/:customerId"
+                    component={CarCreateScreen}
                     exact
                   />
 

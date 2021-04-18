@@ -14,11 +14,13 @@ const getcarsByCustomer = asyncHandler(async (req, res) => {
 
     const count = await Car.countDocuments({ owner: customer._id });
     const cars = await Car.find({ owner: customer._id })
+      .populate("owner", "-cars")
       .limit(pageSize)
       .skip(pageSize * (page - 1));
     res.json({
       page,
       pages: Math.ceil(count / pageSize),
+      count,
       cars,
     });
   } catch (error) {

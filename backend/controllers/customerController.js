@@ -19,6 +19,7 @@ const getCustomers = asyncHandler(async (req, res) => {
       : {};
     const count = await Customer.countDocuments({ ...keyword });
     const customers = await Customer.find({ ...keyword })
+      .populate("cars")
       .limit(pageSize)
       .skip(pageSize * (page - 1));
     res.json({

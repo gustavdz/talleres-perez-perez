@@ -22,10 +22,16 @@ const getCustomers = asyncHandler(async (req, res) => {
       .populate("cars", "-owner")
       .limit(pageSize)
       .skip(pageSize * (page - 1));
+
+    const sortedCustomers = customers.sort((a, b) => {
+      return a.name < b.name ? -1 : 1;
+    });
+
     res.json({
       page,
       pages: Math.ceil(count / pageSize),
-      customers,
+      count,
+      customers: sortedCustomers,
     });
   } catch (error) {
     res.status(400);
